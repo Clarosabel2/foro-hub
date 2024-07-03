@@ -1,0 +1,1 @@
+ALTER TABLE users ADD  COLUMN category_user VARCHAR(10);
