@@ -2,6 +2,9 @@ package alura.forohub.domain.topic;
 
 import alura.forohub.domain.course.CourseRepository;
 import alura.forohub.domain.user.UserRepository;
+import alura.forohub.infra.errors.ValidationIntegratyException;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +19,8 @@ public class TopicService {
     @Autowired
     private UserRepository userRepository;
 
-    public Topic registerTopic(TopicData data){
-        return topicRepository.save(new Topic(data,userRepository.getReferenceById(data.idUser()),courseRepository.getReferenceById(data.idCourse())));
+    public Topic registerTopic(TopicData data) {
+        return topicRepository.save(new Topic(data, userRepository.getReferenceById(data.idUser()), courseRepository.getReferenceById(data.idCourse())));
     }
 
     public void deleteTopic(Long id) {
@@ -27,7 +30,12 @@ public class TopicService {
     }
 
     public Topic getTopic(Long id) {
-        return topicRepository.getReferenceById(id);
+        var topic = topicRepository.getReferenceById(id);
+        if (topic == null) {
+            throw new EntityNotFoundException("Topico no encontrado");
+        } else {
+            return topic;
+        }
     }
 
     public Page<TopicDetails> toListTopics(Pageable p) {
