@@ -33,23 +33,23 @@ public class TokenService {
     }
 
     public String getSubject(String token) {
-        if (token == null) {
-            throw new RuntimeException();
-        }
-
+        if(token == null) throw new RuntimeException("Token is null");
         DecodedJWT verifier = null;
         try {
-            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret); //validando la firma
             verifier = JWT.require(algorithm)
-                    .withIssuer("foro_hub")
+                    // specify any specific claim validations
+                    .withIssuer("foro hub")
+                    // reusable verifier instance
                     .build()
                     .verify(token);
             verifier.getSubject();
-        } catch (JWTVerificationException exception){
-            System.out.println(exception.toString());
+        } catch (JWTVerificationException exception) {
+            // Invalid signature/claims
+            System.out.println(exception.getMessage());
         }
         if (verifier.getSubject() == null) {
-            throw new RuntimeException("INVALID VERIFIER");
+            throw new RuntimeException("Token not found");
         }
         return verifier.getSubject();
     }

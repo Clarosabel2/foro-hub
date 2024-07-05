@@ -1,4 +1,7 @@
 package alura.forohub.domain.course;
 
-public record CourseData() {
+import jakarta.validation.constraints.NotBlank;
+
+public record CourseData(@NotBlank String title, CategoryCourse categoryCourse) {
+
 }

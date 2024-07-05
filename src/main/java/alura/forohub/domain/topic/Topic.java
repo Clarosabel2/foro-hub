@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 
 @Table(name = "topics")
 @Entity(name = "Topic")
@@ -14,7 +15,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Topic {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String message;
@@ -24,6 +26,19 @@ public class Topic {
     @JoinColumn(name = "author_id")
     private User author;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "courses_id")
     private Course course;
+
+    public Topic(TopicData data, User user, Course course) {
+        this.title = data.title();
+        this.message = data.message();
+        this.creationDate = LocalDate.now(ZoneOffset.of("-03:00"));
+        this.status = true;
+        this.author = user;
+        this.course = course;
+    }
+
+    public void changeStatus() {
+        status = false;
+    }
 }

@@ -8,5 +8,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-public record TopicDetails(Long id, String description, Boolean status, CourseDetails course, UserDetails user) {
+public record TopicDetails(Long id, String title, String description, Boolean status, String course, String user_email) {
+    public TopicDetails(Topic topic) {
+        this(topic.getId(),topic.getTitle(), topic.getMessage(), topic.isStatus(),topic.getCourse().getName(),topic.getAuthor().getEmail());
+    }
 }

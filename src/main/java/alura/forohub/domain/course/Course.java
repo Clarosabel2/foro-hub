@@ -14,10 +14,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "courses")
 @EqualsAndHashCode(of = "id")
 public class Course {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private CategoryCourse categoria;
+    private CategoryCourse category;
     private boolean active;
+
+    public Course(CourseData data) {
+        this.name = data.title();
+        this.category = data.categoryCourse();
+        this.active = true;
+    }
 }
