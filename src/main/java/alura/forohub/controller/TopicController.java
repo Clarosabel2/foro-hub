@@ -5,6 +5,7 @@ import alura.forohub.domain.topic.TopicDataModify;
 import alura.forohub.domain.topic.TopicDetails;
 import alura.forohub.domain.topic.TopicService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class TopicController {
     private TopicService topicService;
 
     @PostMapping
-    public ResponseEntity<TopicDetails> registerTopic(@RequestBody TopicData data, UriComponentsBuilder uri) {
+    public ResponseEntity<TopicDetails> registerTopic(@RequestBody @Valid TopicData data, UriComponentsBuilder uri) {
         //return 201 created
         var topicS = topicService.registerTopic(data);
         URI url = uri.path("/topics/{id}").buildAndExpand(topicS.getId()).toUri();
