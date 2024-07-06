@@ -4,6 +4,7 @@ import alura.forohub.domain.topic.TopicData;
 import alura.forohub.domain.topic.TopicDataModify;
 import alura.forohub.domain.topic.TopicDetails;
 import alura.forohub.domain.topic.TopicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.net.URI;
 @RestController
 @ResponseBody
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
 
     @Autowired
