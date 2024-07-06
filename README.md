@@ -1,3 +1,5 @@
+![Badge-Spring](https://github.com/Clarosabel2/foro-hub/assets/95495732/72889d23-d210-4404-bffd-7eeaa91ee4d4)
+
 # Foro Hub
 
 Foro Hub es una aplicación de foro desarrollada con Spring Boot, que permite a los usuarios crear y gestionar temas de discusión. Esta aplicación utiliza Spring Security para la autenticación, Spring Data JPA para la persistencia de datos, y Flyway para la migración de bases de datos.
